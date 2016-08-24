@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.test.demafayz.testapplication.R;
+import com.test.demafayz.testapplication.utils.sync.ApiHelper;
 
 public class MainActivity extends BaseActivity {
 
@@ -11,5 +12,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String result = ApiHelper.getBanks();
     }
 }
