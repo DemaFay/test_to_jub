@@ -1,5 +1,9 @@
 package com.test.demafayz.testapplication.utils.sync;
 
+import android.util.Base64;
+import android.util.Log;
+
+import com.test.demafayz.testapplication.utils.AppUtil;
 import com.test.demafayz.testapplication.utils.TextUtil;
 
 import java.io.BufferedInputStream;
@@ -12,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
 /**
  * Created by demafayz on 25.08.16.
@@ -25,7 +30,6 @@ public class ApiSync {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             InputStream is = new BufferedInputStream(conn.getInputStream());
             String result = readStream(is);
-            String encode = encodeResult(result);
             return result;
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -35,28 +39,10 @@ public class ApiSync {
         return null;
     }
 
-    private static String encodeResult(String result) throws UnsupportedEncodingException {
-
-        String encoding = populateEncoding(result);
-        if (encoding == null) return result;
-
-        byte[] newResult = TextUtil.convertEncoding(result.getBytes(), encoding, "UTF-8");
-        return new String(newResult);
-    }
-
-    private static String populateEncoding(String result) {
-        String prefix = "encoding=\"";
-        String suffix = "\"";
-        String newResult = result.substring(result.indexOf(prefix) + prefix.length(), result.length());
-        String encoding = newResult.substring(0, newResult.indexOf(suffix));
-        if (encoding.equals("")) return null;
-        return encoding;
-    }
-
     private static String readStream(InputStream is) throws IOException {
 
         String line;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, "windows-1251"));
         String result = "";
         while ((line = reader.readLine()) != null) {
             result = result + line;

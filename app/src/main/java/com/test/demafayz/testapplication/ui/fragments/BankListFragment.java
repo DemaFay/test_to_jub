@@ -6,15 +6,28 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.test.demafayz.testapplication.R;
+import com.test.demafayz.testapplication.data.BicCode;
 import com.test.demafayz.testapplication.utils.AppUtil;
+import com.test.demafayz.testapplication.utils.DataParser;
 import com.test.demafayz.testapplication.utils.sync.ApiHelper;
+
+import java.nio.charset.Charset;
 
 /**
  * Created by demafayz on 25.08.16.
  */
 public class BankListFragment extends BaseRecyclerFragment {
+
+    private BicCode bicCode;
+
+    private ViewHolder vh;
+
+    private class ViewHolder {
+        public TextView tvTest;
+    }
 
     @Nullable
     @Override
@@ -26,6 +39,12 @@ public class BankListFragment extends BaseRecyclerFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        populateViewHolder(view);
+    }
+
+    private void populateViewHolder(View view) {
+        vh = new ViewHolder();
+        vh.tvTest = (TextView) view.findViewById(R.id.tvTest);
     }
 
     @Override
@@ -36,12 +55,13 @@ public class BankListFragment extends BaseRecyclerFragment {
     @Override
     protected void doInBackground(Context context) {
         String result = ApiHelper.getBanks();
-        AppUtil.dLog(BankListFragment.class, "result: " + result);
+        bicCode = DataParser.parseBanks(result);
     }
 
     @Override
     protected void onPostExecute() {
-
+        String text = bicCode.getRecord(0).getShortName();
+        vh.tvTest.setText(text);
     }
 
     public static BankListFragment newInstance() {
