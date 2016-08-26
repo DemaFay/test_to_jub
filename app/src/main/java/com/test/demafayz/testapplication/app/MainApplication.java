@@ -10,6 +10,10 @@ import io.realm.RealmConfiguration;
  */
 public class MainApplication extends Application {
 
+    public MainApplication() {
+        super();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

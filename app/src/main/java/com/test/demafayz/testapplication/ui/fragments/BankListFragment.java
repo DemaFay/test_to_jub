@@ -62,14 +62,13 @@ public class BankListFragment extends BaseRecyclerFragment {
     @Override
     protected void doInBackground(Context context) {
 
-        String result = ApiHelper.getBanks();
-        bicCode = DataParser.parseBanks(result);
-
-        /*if (!DBHelper.bankListIsDownloaded()) {
+        if (DBHelper.bankListIsDownloaded()) {
+            String result = ApiHelper.getBanks();
+            bicCode = DataParser.parseBanks(result);
             DBHelper.saveBicCode(bicCode);
         } else {
             bicCode = DBHelper.getBanks();
-        }*/
+        }
     }
 
     @Override
