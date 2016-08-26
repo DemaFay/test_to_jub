@@ -53,9 +53,9 @@ public class DataParser {
                             if (xpp.getAttributeName(i).equals("name")) {
                                 bicCode.setName(xpp.getAttributeValue(i));
                             } else if (xpp.getAttributeName(i).equals("ID")) {
-                                record.setId(xpp.getAttributeValue(i));
+                                record.setId(Long.valueOf(xpp.getAttributeValue(i)));
                             } else if (xpp.getAttributeName(i).equals("DU")) {
-                                record.setDu(xpp.getAttributeValue(i));
+                                record.setDu(DateUtil.stringDateToLong(xpp.getAttributeValue(i), null));
                             }
                         }
                         if (!TextUtils.isEmpty(tmp))
