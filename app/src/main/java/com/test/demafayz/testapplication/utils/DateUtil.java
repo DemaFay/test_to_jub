@@ -1,5 +1,6 @@
 package com.test.demafayz.testapplication.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,13 +21,24 @@ public class DateUtil {
             } else {
                 tmpFormat = BASE_DATE_FORMAT;
             }
-            SimpleDateFormat dateFormat = new SimpleDateFormat(tmpFormat);
-            Date d = dateFormat.parse(tmpFormat);
+            DateFormat formatter = new SimpleDateFormat(BASE_DATE_FORMAT);
+            Date d = formatter.parse(date);
             milliseconds = d.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         } finally {
             return milliseconds;
         }
+    }
+
+    public static String longDateToString(long time, String format) {
+        String tmpFormat = null;
+        if (format != null) {
+            tmpFormat = format;
+        } else {
+            tmpFormat = BASE_DATE_FORMAT;
+        }
+        String dateString = new SimpleDateFormat(tmpFormat).format(new Date(time));
+        return dateString;
     }
 }

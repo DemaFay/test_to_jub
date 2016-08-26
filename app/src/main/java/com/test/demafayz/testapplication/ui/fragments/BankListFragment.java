@@ -3,6 +3,7 @@ package com.test.demafayz.testapplication.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.data.BicCode;
 import com.test.demafayz.testapplication.database.DBHelper;
+import com.test.demafayz.testapplication.ui.adapters.BankListAdapter;
 import com.test.demafayz.testapplication.utils.AppUtil;
 import com.test.demafayz.testapplication.utils.DataParser;
 import com.test.demafayz.testapplication.utils.sync.ApiHelper;
@@ -25,6 +27,7 @@ import io.realm.Realm;
  */
 public class BankListFragment extends BaseRecyclerFragment {
 
+    private BankListAdapter adapter;
     private BicCode bicCode;
 
     private ViewHolder vh;
@@ -71,7 +74,15 @@ public class BankListFragment extends BaseRecyclerFragment {
 
     @Override
     protected void onPostExecute() {
-        String text = bicCode.getRecord(0).getShortName();
+        createNewAdapter();
+    }
+
+    private void createNewAdapter() {
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        adapter = new BankListAdapter(bicCode.getRecords());
+        vh.rvBankList.setLayoutManager(manager);
+        vh.rvBankList.setHasFixedSize(true);
+        vh.rvBankList.setAdapter(adapter);
     }
 
     public static BankListFragment newInstance() {
