@@ -8,4 +8,31 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RecyclerItemTheme">
+        <!--<item name="android:clickable">true</item>-->
+        <item name="android:selectable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="RecyclerItemParentTheme">
+        <item name="android:layout_marginLeft">@dimen/recycler_item_margin_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/recycler_item_margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/recycler_item_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/recycler_item_margin_vertical</item>
+    </style>
+
+    <style name="TitleTextTheme" parent="BaseTextTheme">
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="AccentTextTheme" parent="BaseTextTheme">
+        <item name="android:textColor">@color/textColorAccent</item>
+    </style>
+
+    <style name="BaseTextTheme">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">@dimen/base_text_size</item>
+        <item name="android:layout_margin">@dimen/base_text_margin</item>
+    </style>
+
 </resources>

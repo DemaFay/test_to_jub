@@ -1,5 +1,7 @@
 package com.test.demafayz.testapplication.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 /**
@@ -11,6 +13,15 @@ public class AppUtil {
     public static void dLog(Class objectClass, String text) {
         if (DEBUG) {
             Log.d(objectClass.getSimpleName(), text);
+        }
+    }
+
+    private boolean isOnline(Context context) {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        } catch (Exception e) {
+            return false;
         }
     }
 }

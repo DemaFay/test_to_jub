@@ -1,7 +1,9 @@
 package com.test.demafayz.testapplication.database;
 
+import com.test.demafayz.testapplication.data.BankInfo;
 import com.test.demafayz.testapplication.data.BicCode;
 import com.test.demafayz.testapplication.data.Record;
+import com.test.demafayz.testapplication.database.data.RealmBankInfo;
 import com.test.demafayz.testapplication.database.data.RealmBicCode;
 import com.test.demafayz.testapplication.database.data.RealmRecord;
 
@@ -88,5 +90,61 @@ public class DBHelper {
         record.setBic(realmRecord.getBic());
         record.setShortName(realmRecord.getShortName());
         return record;
+    }
+
+    public static void saveBankInfo(BankInfo bankInfo) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        RealmBankInfo realmBankInfo = populateRealmBankInfo(realm, bankInfo);
+        realm.commitTransaction();
+        realm.close();
+    }
+
+    private static RealmBankInfo populateRealmBankInfo(Realm realm, BankInfo bankInfo) {
+
+        realm.where(RealmBankInfo.class).equalTo("bic", bankInfo.getBic()).findAll().deleteAllFromRealm();
+
+        RealmBankInfo realmBankInfo = realm.createObject(RealmBankInfo.class);
+        realmBankInfo.setAddress(bankInfo.getAddress());
+        realmBankInfo.setKs(bankInfo.getKs());
+        realmBankInfo.setTelephone(bankInfo.getTelephone());
+        realmBankInfo.setName(bankInfo.getName());
+        realmBankInfo.setUpd(bankInfo.getUpd());
+        realmBankInfo.setBic(bankInfo.getBic());
+        realmBankInfo.setCity(bankInfo.getCity());
+        return realmBankInfo;
+    }
+
+    public static boolean bankInfoIsDownloaded(String bic) {
+        int count;
+        Realm realm = Realm.getDefaultInstance();
+        count = realm.where(RealmBankInfo.class).equalTo("bic", bic).findAll().size();
+        realm.close();
+        if (count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static BankInfo getBankInfo(String bic) {
+        BankInfo bankInfo;
+        Realm realm = Realm.getDefaultInstance();
+        bankInfo = populateBankInfo(realm, bic);
+        realm.close();
+        return bankInfo;
+    }
+
+    private static BankInfo populateBankInfo(Realm realm, String bic) {
+        RealmBankInfo realmBankInfo = realm.where(RealmBankInfo.class).equalTo("bic", bic).findFirst();
+        BankInfo bankInfo = new BankInfo();
+        bankInfo.setAddress(realmBankInfo.getAddress());
+        bankInfo.setKs(realmBankInfo.getKs());
+        bankInfo.setTelephone(realmBankInfo.getTelephone());
+        bankInfo.setName(realmBankInfo.getName());
+        bankInfo.setUpd(realmBankInfo.getUpd());
+        bankInfo.setBic(realmBankInfo.getBic());
+        bankInfo.setCity(realmBankInfo.getCity());
+        return bankInfo;
     }
 }

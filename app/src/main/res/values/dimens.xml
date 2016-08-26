@@ -1,5 +1,15 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <!--Container-->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--List item-->
+    <dimen name="recycler_item_margin_horizontal">12dp</dimen>
+    <dimen name="recycler_item_margin_vertical">6dp</dimen>
+
+    <!--View-->
+    <dimen name="base_text_size">16sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="base_text_margin">4dp</dimen>
 </resources>

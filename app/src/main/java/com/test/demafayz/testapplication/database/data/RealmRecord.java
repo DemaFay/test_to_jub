@@ -1,17 +1,20 @@
 package com.test.demafayz.testapplication.database.data;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by demafayz on 26.08.16.
  */
 public class RealmRecord extends RealmObject {
 
+    @PrimaryKey
     private long id;
+    private String bic;
     private long du;
     private String shortName;
-    private String bic;
     private RealmBicCode bicCode;
+    private RealmBankInfo bankInfo;
 
     public long getId() {
         return id;
@@ -51,5 +54,13 @@ public class RealmRecord extends RealmObject {
 
     public void setBicCode(RealmBicCode bicCode) {
         this.bicCode = bicCode;
+    }
+
+    public RealmBankInfo getBankInfo() {
+        return bankInfo;
+    }
+
+    public void setBankInfo(RealmBankInfo bankInfo) {
+        this.bankInfo = bankInfo;
     }
 }

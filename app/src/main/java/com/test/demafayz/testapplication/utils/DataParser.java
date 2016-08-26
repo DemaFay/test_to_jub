@@ -3,9 +3,12 @@ package com.test.demafayz.testapplication.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.test.demafayz.testapplication.data.BankInfo;
 import com.test.demafayz.testapplication.data.BicCode;
 import com.test.demafayz.testapplication.data.Record;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -100,5 +103,32 @@ public class DataParser {
         XmlPullParser xpp = factory.newPullParser();
         xpp.setInput(new StringReader(response));
         return xpp;
+    }
+
+    public static BankInfo parseBankInfo(String request) {
+        BankInfo bankInfo = null;
+        try {
+            bankInfo = new BankInfo();
+            JSONObject root = new JSONObject(request);
+            String address = root.getString("adress");
+            String ks = root.getString("ks");
+            String telephone = root.getString("tel");
+            String name = root.getString("name");
+            String upd = root.getString("upd");
+            String bic = root.getString("bic");
+            String city = root.getString("city");
+            bankInfo.setAddress(address);
+            bankInfo.setKs(ks);
+            bankInfo.setTelephone(telephone);
+            bankInfo.setName(name);
+            bankInfo.setUpd(DateUtil.stringDateToLong(upd, null));
+            bankInfo.setBic(bic);
+            bankInfo.setCity(city);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return bankInfo;
     }
 }

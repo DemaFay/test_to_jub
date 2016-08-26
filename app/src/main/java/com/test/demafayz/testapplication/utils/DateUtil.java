@@ -11,6 +11,7 @@ import java.util.Date;
 public class DateUtil {
 
     public static final String BASE_DATE_FORMAT = "dd.MM.yyyy";
+    public static final String UI_DATE_FORMAT = "dd.MMM.yyyy";
 
     public static long stringDateToLong(String date, String format) {
         long milliseconds = 0;
