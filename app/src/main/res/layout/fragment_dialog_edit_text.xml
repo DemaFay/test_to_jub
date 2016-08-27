@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_margin"
+        android:layout_marginTop="@dimen/base_margin"
+        style="@style/TitleTextTheme"/>
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_margin"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        style="@style/BaseTextTheme"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:padding="@dimen/base_margin"
+            android:id="@+id/btnNegative"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mis_permission_dialog_cancel"
+            style="@style/BaseTextTheme"/>
+
+        <Button
+            android:padding="@dimen/base_margin"
+            android:id="@+id/btnPositive"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mis_permission_dialog_ok"
+            style="@style/AccentTextTheme"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ public class Record {
     private long du;
     private String shortName;
     private String bic;
+    private boolean downloaded;
 
 
     public long getId() {
@@ -40,5 +41,13 @@ public class Record {
 
     public void setBic(String bic) {
         this.bic = bic;
+    }
+
+    public boolean isDownloaded() {
+        return downloaded;
+    }
+
+    public void setDownloaded(boolean downloaded) {
+        this.downloaded = downloaded;
     }
 }

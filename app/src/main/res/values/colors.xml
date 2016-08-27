@@ -3,7 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--Text-->
     <color name="textColorPrimary">#000000</color>
     <color name="textColorHint">#AAAAAA</color>
     <color name="textColorAccent">@color/colorAccent</color>
+
+    <!--Indicator-->
+    <color name="indicator_on">#99FF99</color>
+    <color name="indicator_off">#AAAAAA</color>
 </resources>

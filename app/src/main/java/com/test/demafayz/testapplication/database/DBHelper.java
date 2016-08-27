@@ -33,7 +33,7 @@ public class DBHelper {
         Realm realm = Realm.getDefaultInstance();
         count = realm.where(RealmBicCode.class).findAll().size();
         realm.close();
-        if (count == 0) {
+        if (count > 0) {
             return true;
         } else {
             return false;
@@ -89,6 +89,7 @@ public class DBHelper {
         record.setDu(realmRecord.getDu());
         record.setBic(realmRecord.getBic());
         record.setShortName(realmRecord.getShortName());
+        record.setDownloaded(realmRecord.getBankInfo() != null);
         return record;
     }
 
@@ -104,6 +105,8 @@ public class DBHelper {
 
         realm.where(RealmBankInfo.class).equalTo("bic", bankInfo.getBic()).findAll().deleteAllFromRealm();
 
+        RealmRecord realmRecord = realm.where(RealmRecord.class).equalTo("bic", bankInfo.getBic()).findFirst();
+
         RealmBankInfo realmBankInfo = realm.createObject(RealmBankInfo.class);
         realmBankInfo.setAddress(bankInfo.getAddress());
         realmBankInfo.setKs(bankInfo.getKs());
@@ -112,6 +115,8 @@ public class DBHelper {
         realmBankInfo.setUpd(bankInfo.getUpd());
         realmBankInfo.setBic(bankInfo.getBic());
         realmBankInfo.setCity(bankInfo.getCity());
+        realmBankInfo.setRecord(realmRecord);
+        realmRecord.setBankInfo(realmBankInfo);
         return realmBankInfo;
     }
 

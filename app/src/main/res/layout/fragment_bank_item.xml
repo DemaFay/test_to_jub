@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/llDateContainer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="gone"
     android:padding="14dp">
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="АО 'НАРОДНЫЙ ЗЕМЕЛЬНО-ПРОМЫШЛЕННЫЙ БАНК'"
         android:gravity="center_horizontal"
-        style="@style/TitleTextTheme"/>
+        style="@style/AccentTitleTextTheme"/>
 
     <TextView
         android:id="@+id/tvBic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BIC: 040147781"
         style="@style/BaseTextTheme"/>
 
     <TextView
         android:id="@+id/tvKS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KS: 30101810700000000781"
         style="@style/BaseTextTheme"/>
 
     <TextView
@@ -36,7 +36,6 @@
         android:id="@+id/tvTelephone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="(3854)312685,304918"
         style="@style/BaseTextTheme"/>
 
     <TextView
@@ -49,21 +48,18 @@
         android:id="@+id/tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="БИЙСК"
         style="@style/BaseTextTheme"/>
 
     <TextView
         android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="УЛ.СОЦИАЛИСТИЧЕСКАЯ,1"
         style="@style/BaseTextTheme"/>
 
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="25.08.2016"
         android:layout_gravity="right"
         style="@style/BaseTextTheme"/>
 </LinearLayout>

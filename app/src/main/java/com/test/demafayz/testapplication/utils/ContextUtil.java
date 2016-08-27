@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.ui.activitys.MainActivity;
+import com.test.demafayz.testapplication.ui.dialogs.ErrorDialogFragment;
 
 /**
  * Created by demafayz on 25.08.16.
@@ -29,5 +30,13 @@ public class ContextUtil {
         if (useBackStack) ft.addToBackStack(fragment.getClass().getSimpleName());
         ft.commit();
         return true;
+    }
+
+    public static ErrorDialogFragment showErrorDialog(FragmentManager fm, String title, String text, String positiveTitle, String negativeTitle, ErrorDialogFragment.OnDialogClickListener listener) {
+        //ErrorDialogFragment dialogFragment = ErrorDialogFragment.newInstance(getString(R.string.error_dialog_internet_error), "", getString(R.string.error_dialog_internet_pos), getString(R.string.error_dialog_internet_neg));
+        ErrorDialogFragment dialogFragment = ErrorDialogFragment.newInstance(title, text, positiveTitle, negativeTitle);
+        dialogFragment.setOnDialogClickListener(listener);
+        dialogFragment.show(fm, dialogFragment.getClass().getSimpleName());
+        return dialogFragment;
     }
 }

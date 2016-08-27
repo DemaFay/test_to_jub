@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.test.demafayz.testapplication.R;
@@ -38,6 +39,7 @@ public class BankInfoFragment extends BaseFragment {
         public TextView tvCity;
         public TextView tvAddress;
         public TextView tvDate;
+        public LinearLayout llDateContainer;
     }
 
     @Nullable
@@ -63,6 +65,7 @@ public class BankInfoFragment extends BaseFragment {
         vh.tvCity = (TextView) view.findViewById(R.id.tvCity);
         vh.tvAddress = (TextView) view.findViewById(R.id.tvAddress);
         vh.tvDate = (TextView) view.findViewById(R.id.tvDate);
+        vh.llDateContainer = (LinearLayout) view.findViewById(R.id.llDateContainer);
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -101,8 +104,8 @@ public class BankInfoFragment extends BaseFragment {
     }
 
     private void showData() {
+        vh.llDateContainer.setVisibility(View.VISIBLE);
         vh.tvName.setText(bankInfo.getName());
-
         vh.tvBic.setText(bankInfo.getBic());
         vh.tvKS.setText(bankInfo.getKs());
         vh.tvTelephone.setText(bankInfo.getTelephone());

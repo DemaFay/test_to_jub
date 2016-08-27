@@ -21,6 +21,10 @@
         <item name="android:layout_marginBottom">@dimen/recycler_item_margin_vertical</item>
     </style>
 
+    <style name="AccentTitleTextTheme" parent="TitleTextTheme">
+        <item name="android:textColor">@color/textColorAccent</item>
+    </style>
+
     <style name="TitleTextTheme" parent="BaseTextTheme">
         <item name="android:textSize">@dimen/title_text_size</item>
     </style>

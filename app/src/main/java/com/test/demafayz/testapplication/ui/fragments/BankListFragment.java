@@ -13,6 +13,8 @@ import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.data.BicCode;
 import com.test.demafayz.testapplication.database.DBHelper;
 import com.test.demafayz.testapplication.ui.adapters.BankListAdapter;
+import com.test.demafayz.testapplication.ui.dialogs.ErrorDialogFragment;
+import com.test.demafayz.testapplication.utils.AppUtil;
 import com.test.demafayz.testapplication.utils.ContextUtil;
 import com.test.demafayz.testapplication.utils.DataParser;
 import com.test.demafayz.testapplication.utils.sync.ApiHelper;
@@ -20,12 +22,14 @@ import com.test.demafayz.testapplication.utils.sync.ApiHelper;
 /**
  * Created by demafayz on 25.08.16.
  */
-public class BankListFragment extends BaseFragment implements BankListAdapter.OnRecyclerItemClickListener {
+public class BankListFragment extends BaseFragment implements BankListAdapter.OnRecyclerItemClickListener,ErrorDialogFragment.OnDialogClickListener {
 
     private BankListAdapter adapter;
     private BicCode bicCode;
 
     private ViewHolder vh;
+    private ErrorDialogFragment dialogFragment;
+    private int clickPosition;
 
     private class ViewHolder {
         public RecyclerView rvBankList;
@@ -56,7 +60,7 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
 
     @Override
     protected void doInBackground(Context context) {
-        if (DBHelper.bankListIsDownloaded()) {
+        if (!DBHelper.bankListIsDownloaded()) {
             String result = ApiHelper.getBanks();
             bicCode = DataParser.parseBanks(result);
             DBHelper.saveBicCode(bicCode);
@@ -81,8 +85,39 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
 
     @Override
     public void onRecyclerItemClickListener(View itemView) {
-        int position = vh.rvBankList.getChildAdapterPosition(itemView);
-        openBankInfo(position);
+        clickPosition = vh.rvBankList.getChildAdapterPosition(itemView);
+        showBankInfo(clickPosition);
+    }
+
+    private void showBankInfo(int position) {
+        if (AppUtil.isNetworkAvailable(getContext())) {
+            openBankInfo(position);
+        } else {
+            if (bicCode.getRecord(position).isDownloaded()) {
+                openBankInfo(position);
+            } else {
+                dialogFragment = ContextUtil.showErrorDialog(getChildFragmentManager(),
+                        getString(R.string.error_dialog_internet_error),
+                        null,
+                        getString(R.string.error_dialog_internet_pos),
+                        getString(R.string.error_dialog_internet_neg),
+                        this);
+            }
+        }
+    }
+
+    @Override
+    public void onPositiveClickListener() {
+        if (dialogFragment != null)
+        dialogFragment.dismiss();
+        showBankInfo(clickPosition);
+    }
+
+    @Override
+    public void onNegativeClickListener() {
+        if (dialogFragment != null) {
+            dialogFragment.dismiss();
+        }
     }
 
     private void openBankInfo(int position) {
