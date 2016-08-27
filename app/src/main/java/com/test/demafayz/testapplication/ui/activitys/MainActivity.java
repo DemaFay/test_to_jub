@@ -1,6 +1,12 @@
 package com.test.demafayz.testapplication.ui.activitys;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -14,6 +20,7 @@ import com.test.demafayz.testapplication.utils.ContextUtil;
 public class MainActivity extends BaseActivity implements ErrorDialogFragment.OnDialogClickListener {
 
     private MaterialDialog dialogFragment;
+    private static final int PERMISSIONS_REQUEST_INTERNET = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,34 @@ public class MainActivity extends BaseActivity implements ErrorDialogFragment.On
     }
 
     private void startApp() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[] {Manifest.permission.INTERNET,
+                                Manifest.permission.ACCESS_NETWORK_STATE},
+                        PERMISSIONS_REQUEST_INTERNET);
+            }
+        } else {
+            getData();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_INTERNET: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getData();
+                } else {
+                    onBackPressed();
+                }
+                return;
+            }
+        }
+    }
+
+    private void getData() {
         if (AppUtil.isNetworkAvailable(this)) {
             showBankListFragment();
         } else {
