@@ -3,6 +3,7 @@ package com.test.demafayz.testapplication.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,6 +82,7 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
         vh.rvBankList.setLayoutManager(manager);
         vh.rvBankList.setHasFixedSize(true);
         vh.rvBankList.setAdapter(adapter);
+        vh.rvBankList.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
