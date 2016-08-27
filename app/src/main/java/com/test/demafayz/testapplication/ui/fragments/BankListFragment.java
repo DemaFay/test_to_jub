@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.data.BicCode;
 import com.test.demafayz.testapplication.database.DBHelper;
@@ -29,8 +30,10 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
     private BicCode bicCode;
 
     private ViewHolder vh;
-    private ErrorDialogFragment dialogFragment;
+    private MaterialDialog dialogFragment;
+    private MaterialDialog progressDialog;
     private int clickPosition;
+    private boolean isDownloaded;
 
     private class ViewHolder {
         public RecyclerView rvBankList;
@@ -61,12 +64,14 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
 
     @Override
     protected void onPreExecute() {
-
+        if (!DBHelper.bankListIsDownloaded()) {
+            progressDialog = ContextUtil.showProgressDialog(getContext());
+        }
     }
 
     @Override
     protected void doInBackground(Context context) {
-        if (!DBHelper.bankListIsDownloaded()) {
+        if (isDownloaded = !DBHelper.bankListIsDownloaded()) {
             String result = ApiHelper.getBanks();
             bicCode = DataParser.parseBanks(result);
             DBHelper.saveBicCode(bicCode);
@@ -78,6 +83,8 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
     @Override
     protected void onPostExecute() {
         createNewAdapter();
+        if (progressDialog != null)
+        progressDialog.dismiss();
     }
 
     private void createNewAdapter() {
@@ -103,11 +110,11 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
             if (bicCode.getRecord(position).isDownloaded()) {
                 openBankInfo(position);
             } else {
-                dialogFragment = ContextUtil.showErrorDialog(getChildFragmentManager(),
+                dialogFragment = ContextUtil.showErrorDialog(getContext(),
                         getString(R.string.error_dialog_internet_error),
-                        null,
+                        getString(R.string.error_dialog_internet_desc),
                         getString(R.string.error_dialog_internet_pos),
-                        getString(R.string.error_dialog_internet_neg),
+                        getString(R.string.mis_permission_dialog_cancel),
                         this);
             }
         }

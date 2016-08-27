@@ -3,17 +3,17 @@ package com.test.demafayz.testapplication.ui.activitys;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.database.DBHelper;
 import com.test.demafayz.testapplication.ui.dialogs.ErrorDialogFragment;
 import com.test.demafayz.testapplication.ui.fragments.BankListFragment;
 import com.test.demafayz.testapplication.utils.AppUtil;
 import com.test.demafayz.testapplication.utils.ContextUtil;
-import com.test.demafayz.testapplication.utils.Network;
 
 public class MainActivity extends BaseActivity implements ErrorDialogFragment.OnDialogClickListener {
 
-    private ErrorDialogFragment dialogFragment;
+    private MaterialDialog dialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class MainActivity extends BaseActivity implements ErrorDialogFragment.On
             if (DBHelper.bankListIsDownloaded()) {
                 showBankListFragment();
             } else {
-                dialogFragment = ContextUtil.showErrorDialog(getSupportFragmentManager(),
+                dialogFragment = ContextUtil.showErrorDialog(this,
                         getString(R.string.error_dialog_internet_error),
-                        null,
+                        getString(R.string.error_dialog_internet_desc),
                         getString(R.string.error_dialog_internet_pos),
                         getString(R.string.error_dialog_internet_neg),
                         this);

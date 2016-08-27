@@ -4,10 +4,12 @@
     <string name="bank_info_fragment__telephone_title">Телефон:</string>
     <string name="mis_permission_dialog_cancel">Отмена</string>
     <string name="mis_permission_dialog_ok">ОК</string>
-    <string name="error_dialog_internet_error">Ошибка с содинением</string>
-    <string name="error_dialog_internet_desc">Для использования приложения при первом запуске, для отображения списка банков вам необходимо включить интернет для того, чтобы загрузить список банков</string>
+    <string name="error_dialog_internet_error">Ошибка с соединением</string>
+    <string name="error_dialog_internet_desc">Вы пытаетесь посмотреть данные которые еще не загружены в ваш телефон, для того чтобы иметь возможность посмотреть данный контент, вам необходимо включить доступ к интернету и нажать на кнопку \"Включил\"</string>
     <string name="error_dialog_internet_pos">Включил</string>
     <string name="error_dialog_internet_neg">Выйти из приложения</string>
-    <string name="bank_info_fragment__title">Info bank</string>
-    <string name="bank_list_fragment__title">Bank list</string>
+    <string name="bank_info_fragment__title">Подробная информация</string>
+    <string name="bank_list_fragment__title">Список Банков</string>
+    <string name="progress_dialog">Идет загрузка</string>
+    <string name="please_wait">Это может занять до 1ной минуты</string>
 </resources>

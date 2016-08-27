@@ -1,10 +1,14 @@
 package com.test.demafayz.testapplication.utils;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.ui.activitys.MainActivity;
 import com.test.demafayz.testapplication.ui.dialogs.ErrorDialogFragment;
@@ -34,8 +38,43 @@ public class ContextUtil {
         return true;
     }
 
-    public static ErrorDialogFragment showErrorDialog(FragmentManager fm, String title, String text, String positiveTitle, String negativeTitle, ErrorDialogFragment.OnDialogClickListener listener) {
-        //ErrorDialogFragment dialogFragment = ErrorDialogFragment.newInstance(getString(R.string.error_dialog_internet_error), "", getString(R.string.error_dialog_internet_pos), getString(R.string.error_dialog_internet_neg));
+    public static MaterialDialog showErrorDialog(Context context, String title, String text, String positiveTitle, String negativeTitle, final ErrorDialogFragment.OnDialogClickListener listener) {
+
+
+        MaterialDialog materialDialog = new MaterialDialog.Builder(context)
+                .title(title)
+                .content(text)
+                .positiveText(positiveTitle)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        listener.onPositiveClickListener();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        listener.onNegativeClickListener();
+                    }
+                })
+                .negativeText(negativeTitle)
+                .show();
+        return materialDialog;
+    }
+
+    public static MaterialDialog showProgressDialog(Context context) {
+        MaterialDialog materialDialog = new MaterialDialog.Builder(context)
+                .canceledOnTouchOutside(false)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0)
+                .progressIndeterminateStyle(false)
+                .show();
+        return materialDialog;
+    }
+
+    @Deprecated
+    public static ErrorDialogFragment showErrorDialog(FragmentManager fm, String title, String text, String positiveTitle, String negativeTitle, final ErrorDialogFragment.OnDialogClickListener listener) {
         ErrorDialogFragment dialogFragment = ErrorDialogFragment.newInstance(title, text, positiveTitle, negativeTitle);
         dialogFragment.setOnDialogClickListener(listener);
         dialogFragment.show(fm, dialogFragment.getClass().getSimpleName());

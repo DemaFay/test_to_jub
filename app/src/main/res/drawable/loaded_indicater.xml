@@ -4,7 +4,7 @@
     android:shape="oval">
 
     <solid
-        android:color="@color/indicator_on"/>
+        android:color="@color/colorAccent"/>
 
     <size
         android:width="@dimen/load_indicator_size"
