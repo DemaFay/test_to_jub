@@ -1,6 +1,7 @@
 package com.test.demafayz.testapplication.ui.activitys;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.test.demafayz.testapplication.R;
 import com.test.demafayz.testapplication.database.DBHelper;
@@ -36,6 +37,17 @@ public class MainActivity extends BaseActivity implements ErrorDialogFragment.On
                         this);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
     }
 
     @Override

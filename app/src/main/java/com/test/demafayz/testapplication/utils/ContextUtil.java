@@ -15,6 +15,7 @@ import com.test.demafayz.testapplication.ui.dialogs.ErrorDialogFragment;
 public class ContextUtil {
 
     public static boolean showFragment(FragmentActivity activity, Fragment fragment, boolean useBackStack) {
+
         int fragmentContainerId = 0;
         if (activity instanceof MainActivity) {
             fragmentContainerId = R.id.rlFragmentContainer;
@@ -26,6 +27,7 @@ public class ContextUtil {
 
         fm = activity.getSupportFragmentManager();
         ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         ft.replace(fragmentContainerId, fragment);
         if (useBackStack) ft.addToBackStack(fragment.getClass().getSimpleName());
         ft.commit();

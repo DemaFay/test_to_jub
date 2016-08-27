@@ -8,4 +8,6 @@
     <string name="error_dialog_internet_desc">Для использования приложения при первом запуске, для отображения списка банков вам необходимо включить интернет для того, чтобы загрузить список банков</string>
     <string name="error_dialog_internet_pos">Включил</string>
     <string name="error_dialog_internet_neg">Выйти из приложения</string>
+    <string name="bank_info_fragment__title">Info bank</string>
+    <string name="bank_list_fragment__title">Bank list</string>
 </resources>

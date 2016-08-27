@@ -25,6 +25,17 @@ public abstract class BaseFragment extends Fragment implements LoaderManager.Loa
         populateBackground();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        String title = setFragmentTitle();
+        if (title != null) {
+            getActivity().setTitle(title);
+        }
+    }
+
+    protected abstract String setFragmentTitle();
+
     protected abstract void onPreExecute();
 
     protected abstract void doInBackground(Context context);

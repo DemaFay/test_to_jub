@@ -12,4 +12,8 @@
     <!--Indicator-->
     <color name="indicator_on">#99FF99</color>
     <color name="indicator_off">#AAAAAA</color>
+
+    <!--Container-->
+    <color name="rootColorPrimary">#CCCCCC</color>
+    <color name="itemColorPrimary">#FFFFFF</color>
 </resources>

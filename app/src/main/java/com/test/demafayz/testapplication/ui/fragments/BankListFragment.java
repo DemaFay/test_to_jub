@@ -49,6 +49,11 @@ public class BankListFragment extends BaseFragment implements BankListAdapter.On
         populateViewHolder(view);
     }
 
+    @Override
+    protected String setFragmentTitle() {
+        return getString(R.string.bank_list_fragment__title);
+    }
+
     private void populateViewHolder(View view) {
         vh = new ViewHolder();
         vh.rvBankList = (RecyclerView) view.findViewById(R.id.rvBankList);
